@@ -1,0 +1,3 @@
+module ObjectSearchHelper
+	include ActsWithMetaDataHelper
+end

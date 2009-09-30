@@ -1,0 +1,29 @@
+<script type="text/javascript">
+  console.log("before add on load handler");
+  odrails_onload_handlers.push(periodic_updater("/object_search/update/<%= @object.attributes['id'] %>", "response", 2, "completed", "search-spinner")); // push call
+  console.log("after add on load handler");
+</script>
+
+<div class="title-and-actions">
+  <table width="100%">
+    <tr>
+      <td align="left"><div class="title">Searching for: <%= @model_params[:title] %></div></td>
+      <td align="right">
+        <div id="search-spinner" class="actions">Actions:  
+          <span class="action">
+             <%= link_to("Stop", 
+                         :controller => "object_search", 
+                         :action => "stop") 
+             %>
+          </span>
+          <img src="/images/ajax-bar-spinner-small-blue.gif"></img>
+        </div> 
+      </td>
+    </tr>
+  </table>
+</div>
+<div id="response">
+<%= render :partial => "found_objects", 
+           :locals => {:status => @object.status,
+                       :found_objects => @object.found_objects} %>
+</div>

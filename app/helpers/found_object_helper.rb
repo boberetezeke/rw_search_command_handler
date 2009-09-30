@@ -1,0 +1,3 @@
+module FoundObjectHelper
+	include ActsWithMetaDataHelper
+end

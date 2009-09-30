@@ -1,0 +1,6 @@
+Status: <%= status %><br>
+Found Objects:
+<% found_objects.each do |fo| %>
+  <% found_object = fo.fo_class.constantize.find(fo.fo_id) %>
+  <%= relationship_link_to(found_object, found_object) %>,
+<% end %>
