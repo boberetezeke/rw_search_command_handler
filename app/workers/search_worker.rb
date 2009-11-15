@@ -22,7 +22,9 @@ class SearchWorker < BackgrounDRb::Rails
       models.each do |model|
         puts "about to search model '#{model.name}'"
         begin
-          objects = model.name.constantize.find_by_contents(search_string)
+          klass = model.name.constantize
+          puts "for model '#{model.name}', class = #{klass.inspect}"
+          objects = klass.find_with_ferret(search_string)
           objects.each do |o| 
             FoundObject.new(:fo_class => o.class.to_s, 
                             :fo_id => o.attributes["id"], 
@@ -36,9 +38,12 @@ class SearchWorker < BackgrounDRb::Rails
       puts "done searching"
 
       object_search.status = "completed"
+      puts "done searching 2"
       object_search.save
+      puts "done searching 3"
     end
 
+    puts "ALL DONE SEARCHING **************************"
     return object_search.attributes["id"]
   end
 
